@@ -1,0 +1,89 @@
+{
+  "name": "envguard-vscode",
+  "displayName": "EnvGuard",
+  "description": "Real-time .env file validation, secret detection, and security warnings",
+  "version": "1.0.0",
+  "publisher": "ranjan98",
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Linters",
+    "Other"
+  ],
+  "keywords": [
+    "env",
+    "environment",
+    "secrets",
+    "security",
+    "validation",
+    "dotenv"
+  ],
+  "activationEvents": [
+    "onLanguage:dotenv",
+    "workspaceContains:**/.env*"
+  ],
+  "main": "./dist/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "envguard.validate",
+        "title": "EnvGuard: Validate Current File"
+      },
+      {
+        "command": "envguard.scanSecrets",
+        "title": "EnvGuard: Scan for Secrets"
+      },
+      {
+        "command": "envguard.generateExample",
+        "title": "EnvGuard: Generate .env.example"
+      }
+    ],
+    "configuration": {
+      "title": "EnvGuard",
+      "properties": {
+        "envguard.enableRealTimeValidation": {
+          "type": "boolean",
+          "default": true,
+          "description": "Enable real-time validation of .env files"
+        },
+        "envguard.showSecretWarnings": {
+          "type": "boolean",
+          "default": true,
+          "description": "Show warnings for detected secrets"
+        },
+        "envguard.secretPatterns": {
+          "type": "array",
+          "default": [],
+          "description": "Additional regex patterns to detect as secrets"
+        }
+      }
+    },
+    "languages": [
+      {
+        "id": "dotenv",
+        "aliases": ["Environment Variables", "dotenv", "env"],
+        "extensions": [".env", ".env.local", ".env.development", ".env.production", ".env.test", ".env.staging", ".env.example"],
+        "configuration": "./language-configuration.json"
+      }
+    ]
+  },
+  "scripts": {
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "package": "vsce package",
+    "publish": "vsce publish"
+  },
+  "devDependencies": {
+    "@types/node": "^20.10.0",
+    "@types/vscode": "^1.85.0",
+    "typescript": "^5.3.3",
+    "@vscode/vsce": "^2.22.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ranjan98/envguard-vscode"
+  },
+  "author": "ranjan98",
+  "license": "MIT"
+}
